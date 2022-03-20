@@ -20,15 +20,18 @@
             </div>
             <div class="col-md-6">
                 <label>QR code</label>
-                <form action="/Login-system" method="post">
+                <form action="">
                     <input type="text" name="qrcode_text" placeholder="Show your QR Code to the camera" id="text" class="form-control"><br><br>
-                    <button type="submit">Confirm</button>
+                    <button  type="submit" id="confirm">Confirm</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
+        
+        const form = document.querySelector('form');
+
         let scanner = new Instascan.Scanner({video: document.getElementById("preview")});
         Instascan.Camera.getCameras().then(function(cameras){
             if(cameras.length > 0)
@@ -47,6 +50,11 @@
             document.getElementById("text").value=c;
         });
 
+        form.addEventListener('click', redirectHome);
+
+        function redirectHome(e){
+            alert("Hello")
+        }
     </script>
 </body>
 </html>

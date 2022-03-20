@@ -31,8 +31,12 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
 // routes
-app.get("/", requireAuth, (req, res) =>{
+app.get("/home", requireAuth, (req, res) =>{
   res.render("index");
+})
+
+app.get("/", requireAuth, (req, res) =>{
+  res.render("login");
 })
 
 
@@ -41,34 +45,3 @@ app.use(authRoutes);
 
 
 // =============== OTP Code =====================================//
-
-// Sending an email to a user using Nodemailer
-const nodemailer = require("nodemailer");
-
-//sender email (my email) accesing info
-const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
-    port:  587,
-    auth: {
-        user: "IASProject-group07_01@outlook.com",
-        pass: "group07@IASProject"
-    }
-});
-
-//mail
-const options = {
-    from: "IASProject-group07_01@outlook.com",
-    to: "testusergroup07@gmail.com",
-    subject: "OTP for access at: ",
-    text: "Your OTP is: "
-};
-
-//sending the mail
-transporter.sendMail(options, function(err, info){
-    if(err)
-    {
-        console.log(err);
-        return;
-    }
-    console.log("Sent: " + info.response);
-});

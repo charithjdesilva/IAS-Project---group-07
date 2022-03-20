@@ -15,7 +15,7 @@
   border: 1px solid black;
   border-radius: 5%;
   width: 40%;
-  height: 50%;
+  height: auto;
   padding: 10px 10px;
 }
 
@@ -27,6 +27,15 @@
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.container-login .signup .sign-up {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-top: 10px;
 }
 
 .container-login #emailError,

@@ -9,13 +9,19 @@
     border: 1px solid black;
     border-radius: 5%;
     width: 40%;
-    height: 50%;
+    height: auto;
     padding: 10px 10px;
 
     .button {
       padding-top: 20px;
       display: flex;
       justify-content: flex-end;
+    }
+
+    .sign-up {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
     }
   }
   #emailError,
