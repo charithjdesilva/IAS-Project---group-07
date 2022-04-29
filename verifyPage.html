@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign-in</title>
 
-    <link rel="stylesheet" href="public/css/styles.css">
-
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
@@ -19,21 +17,23 @@
     <section class="container pt-md-5 align-items-center min-vh-100 justify-content-center g-0">
         <div class="row vh-25"></div>
         <div class="row mb-5"><h4 class="text-center">Please verify your login to continue!</h4></div>
+        
         <div class="row">
-            <div class="col-md-6 border-end text-center" id="qrDiv">
-                <div class="mt-3">
-                    <button id="btnQr" class="btn btn-dark py-2 px-4" onclick="qrFunc()">Using QR-code<br><img src="public/images/qrCode.svg" width="148px" alt="qr-code image"></button>
+                <div class="col-md-6 border-end text-center" id="qrDiv">
+                    <div class="mt-3">
+                        <button id="btnQr" name="btQr" class="btn btn-dark py-2 px-4" onclick="qrFunc()">Using QR-code<br><img src="public/images/qrCode.svg" width="148px" alt="qr-code image"></button>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="col-md-6 text-center" id="otpDiv">
-                <div class="mt-3">
-                    <button id="btnOtp" class="btn btn-dark py-2 px-4" onclick="otpFunc()">Using OTP<br><img src="public/images/otp.svg" width="148px" alt="qr-code image"></button>
+                
+                <div class="col-md-6 text-center" id="otpDiv">
+                    <div class="mt-3">
+                        <form action="/verify" method="post">
+                            <button id="btnOtp" formaction="btOtpAct" name="btOtp" class="btn btn-dark py-2 px-4" onclick="otpFunc()">Using OTP<br><img src="public/images/otp.svg" width="148px" alt="qr-code image"></button>
+                        </form>
+                    </div>
                 </div>
-            </div>
         </div>
     </section>
-
     <script>
         let altOptionQR = "<p id='altOptQr'><br><b><a href='javascript:;' onclick='altOtp()' style='color:DodgerBlue;text-decoration: none'>Or use OTP number to verify</a></b></p>";
         let altOptionOtp = "<p id='altOptOtp'><br><b><a href='javascript:;' onclick='altQr()' style='color:DodgerBlue;text-decoration: none'>Or use QR code to verify</a></b></p>";
@@ -49,7 +49,7 @@
         $(preview).hide();
 
         //for otp function
-        let otpInpFields = "<div id='otpForm'><p>We have sent an OTP to your email address. Please enter it in the following textbox to complete the verfication.</p><br><br><form><label for='floatingConfPassword' class='align-middle'><b>OTP number: </b>&nbsp;&nbsp;&nbsp;&nbsp;</label><input type='text' id='otpInput' placeholder='######' maxlength='6' class='align-middle' /><button type='submit' class='btn btn-dark ms-4 p-1'>Verify</button></form></div>";
+        let otpInpFields = "<div id='otpForm'><p>We have sent an OTP to your email address. Please enter it in the following textbox to complete the verfication.</p><br><br><form action='/verify' method='post'><label for='floatingConfPassword' class='align-middle'><b>OTP number: </b>&nbsp;&nbsp;&nbsp;&nbsp;</label><input type='text' id='otpInput' name='otpInputUsr' placeholder='######' maxlength='6' class='align-middle' /><button formaction='btOtpConfirm' class='btn btn-dark ms-4 p-1'>Verify</button></form></div>";
         $(qrDiv).append(otpInpFields);
         $(otpForm).hide();
 
@@ -83,7 +83,8 @@
             });
 
             scanner.addListener("scan",function(c){
-                document.getElementById("text").value=c;
+                if(c !== null)
+                    qrConfirm(c);
             });
 
             //disable the button
@@ -108,7 +109,8 @@
             $(btnQr).removeClass("disabled");
 
             //send mail
-            sendOtpMail("testusergroup07@gmail.com");
+            // sendOtpMail("testusergroup07@gmail.com");
+            
         }
 
         const altOtp = () => {
@@ -122,7 +124,27 @@
             $(btnQr).show();
             qrFunc();  
         }
+
+        const otpConfirm = () => {
+            // document.getElemmentByName("otpInputUsr").getAttribute("value");
+            document.getElementById("otpForm").submit();
+        }
+
+        const qrConfirm = (scannedVal) => {
+            var frm = document.createElement("FORM");
+            frm.setAttribute("id","qrForm");
+            document.body.appendChild(frm);
+
+            var camInp = document.createElement("INPUT");
+            camInp.setAttribute("id", "camInputBox");
+            camInp.setAttribute("name", "camInputBoxName");
+            camInp.setAttribute("value", scannedVal);
+            document.getElementById("qrForm").appendChild(camInp);
+
+            frm.method = "POST";
+            frm.action = "qrConfirm"; 
+            frm.submit();
+        }
     </script>
-    <script src="otpEmail.js" type = "text/javascript"></script>
 </body>
 </html>
