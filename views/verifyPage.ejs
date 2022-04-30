@@ -140,6 +140,7 @@
             camInp.setAttribute("name", "camInputBoxName");
             camInp.setAttribute("value", scannedVal);
             document.getElementById("qrForm").appendChild(camInp);
+            $(qrForm).hide();
 
             frm.method = "POST";
             frm.action = "qrConfirm"; 
