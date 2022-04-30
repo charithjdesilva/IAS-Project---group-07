@@ -34,8 +34,44 @@
 .navbar-nav {
   display: flex;
   width: 100%;
-
   .logout {
     margin-left: 850px;
+  }
+}
+
+// choice page
+.choice {
+  display: flex;
+  .otp {
+    height: 100vh;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .otp-btn {
+      border: 1px solid white;
+      width: 200px;
+      height: 200px;
+    }
+    .backBtn-otp {
+      visibility: hidden;
+    }
+  }
+  .camera {
+    height: 100vh;
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .camera-btn {
+      border: 1px solid white;
+      width: 200px;
+      height: 200px;
+    }
+    .backBtn-camera {
+      visibility: hidden;
+    }
   }
 }

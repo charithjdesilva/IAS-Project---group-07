@@ -45,7 +45,7 @@ module.exports.login_get = (req,res) =>{
 }
 
 module.exports.verification_get = (req,res) =>{
-  res.render("verificationPage");
+  res.render("verifyPage");
 }
 
 
