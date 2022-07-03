@@ -39,6 +39,9 @@ app.get("/", requireAuth, (req, res) =>{
   res.render("login");
 })
 
+app.get("/success", (req, res)=>{
+    res.render("success")
+})
 
 app.use(authRoutes);
 
@@ -69,9 +72,7 @@ app.post("/btOtpConfirm",function(req,res,next){
         console.log(userInpOtp);
 
         if(otpVal === userInpOtp){
-            console.log("OTP is a match");
-
-            // verification success
+            res.sendFile("./views/success.html", {root:__dirname})
         }
         else
         {
@@ -85,8 +86,11 @@ app.post("/qrConfirm",function(req,res,next){
     console.log("camera input detected");
     var camInpQr = "";
     camInpQr = req.body.camInputBoxName;
-
-    console.log(req.body.camInputBoxName);
+    console.log(camInpQr);
+    
+    if (camInpQr == "Iasuser2022"){
+        res.sendFile("./views/success.html", {root:__dirname})
+    }
 });
 
 // Gettign Qr code value 

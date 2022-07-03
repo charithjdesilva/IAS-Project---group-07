@@ -48,6 +48,11 @@ module.exports.verification_get = (req,res) =>{
   res.render("verifyPage");
 }
 
+module.exports.success = (req,res) =>{
+  res.render("success");
+}
+
+
 
 module.exports.signup_post = async (req,res) =>{
   const {email, password} = req.body;
