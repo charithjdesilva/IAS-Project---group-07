@@ -104,7 +104,7 @@ app.post("/qrConfirm",function(req,res,next){
 const nodemailer = require("nodemailer");
 
 //generate a OTP value
-let otpVal = Math.floor(Math.random()*(999999 - 100000)) + 100000;
+let otpVal;
 
 
 //
@@ -124,7 +124,7 @@ var transporter = nodemailer.createTransport({
 
 // send mail function
 var sendOtpMail = function (userEmail){
-
+    otpVal = Math.floor(Math.random()*(999999 - 100000)) + 100000;
     //mail content
     const options = {
         from: "IASProject-group07@outlook.com",
