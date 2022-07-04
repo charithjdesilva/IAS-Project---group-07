@@ -1,7 +1,8 @@
 
 const mongoose = require('mongoose');
 const {isEmail} = require('validator'); 
-const bcrypt = require('bcrypt');
+
+const Sha256 = require(".././sha")
 
 const userSchema = new mongoose.Schema({
   email:{
@@ -27,21 +28,27 @@ userSchema.post('save', function(doc, next){
 
 // fire a function before a new doc is saved to db
 userSchema.pre('save', async function(next){
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt)
+  // const salt = await bcrypt.genSalt();
+  // this.password = await bcrypt.hash(this.password, salt)
+  this.password = Sha256.hash(this.password)
   next();
 })
 
-//Static method to login user
 
+/*
+ * Login function using hash algorithm 
+ */
+/* =============================================
+================================================
+================================================= */
 
 userSchema.statics.login = async function(email, password){
   
-    const user = await this.findOne({email: email}); 
+    const user = await this.findOne({email: email});
 
     if(user){
-      const auth = await bcrypt.compare(password, user.password);
-      if(auth){
+      password = Sha256.hash(password)
+      if(password == user.password){
         return user;
       }
       throw Error("Incorrect Password");

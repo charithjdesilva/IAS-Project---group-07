@@ -5,13 +5,13 @@ const authRoutes = require("./routes/authRoutes");
 const { requireAuth } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
 
-
+const User = require("./models/User")
 
 const app = express();
 app.set("view engine", "ejs");
 
 
-const dbURI = "mongodb+srv://ravindu0504:test123@secret.z1ncj.mongodb.net/secret?retryWrites=true&w=majority"
+const dbURI = "mongodb+srv://ravindu0504:test123@users.ldjhmti.mongodb.net/users?retryWrites=true&w=majority"
 
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedtopology:true})
   .then((result)=>{
@@ -58,7 +58,7 @@ app.get("/verify/otpEmail.js",function(req,res){
     res.sendFile("./otpEmail.js", { root: __dirname });
 });
 
-app.post("/btOtpAct",function(req,res,next){
+app.post("/btOtpAct", function(req,res,next){
         console.log("otp Button clicked");
         sendOtpMail("testusergroup07@gmail.com");
     // res.send("Your BMI values is: " + bmiVal.toFixed(2));
