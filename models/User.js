@@ -42,9 +42,12 @@ userSchema.pre('save', async function(next){
 ================================================
 ================================================= */
 
+global.userEmail;
+
 userSchema.statics.login = async function(email, password){
   
     const user = await this.findOne({email: email});
+    global.userEmail = user.email;
 
     if(user){
       password = Sha256.hash(password)

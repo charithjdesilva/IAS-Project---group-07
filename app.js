@@ -5,7 +5,7 @@ const authRoutes = require("./routes/authRoutes");
 const { requireAuth } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
 
-const User = require("./models/User")
+
 
 const app = express();
 app.set("view engine", "ejs");
@@ -60,7 +60,7 @@ app.get("/verify/otpEmail.js",function(req,res){
 
 app.post("/btOtpAct", function(req,res,next){
         console.log("otp Button clicked");
-        sendOtpMail("testusergroup07@gmail.com");
+        sendOtpMail(global.userEmail);
     // res.send("Your BMI values is: " + bmiVal.toFixed(2));
 });
 
