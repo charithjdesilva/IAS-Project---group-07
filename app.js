@@ -72,7 +72,7 @@ app.post("/btOtpConfirm",function(req,res,next){
         console.log(userInpOtp);
 
         if(otpVal === userInpOtp){
-            res.sendFile("./views/success.html", {root:__dirname})
+            res.render("success")
         }
         else
         {
@@ -89,7 +89,7 @@ app.post("/qrConfirm",function(req,res,next){
     console.log(camInpQr);
     
     if (camInpQr == "Iasuser2022"){
-        res.sendFile("./views/success.html", {root:__dirname})
+        res.render("success")
     }
 });
 
