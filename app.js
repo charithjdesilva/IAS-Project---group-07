@@ -86,9 +86,9 @@ app.post("/qrConfirm",function(req,res,next){
     console.log("camera input detected");
     var camInpQr = "";
     camInpQr = req.body.camInputBoxName;
-    console.log(camInpQr);
+    //console.log(camInpQr);
     
-    if (camInpQr == "Iasuser2022"){
+    if (camInpQr == global.hashed_userEmail){
         res.render("success")
     }
 });
