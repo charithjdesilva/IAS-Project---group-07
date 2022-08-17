@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 const {isEmail} = require('validator'); 
 
-const Sha256 = require(".././sha")
 
 const userSchema = new mongoose.Schema({
   email:{
@@ -30,17 +29,35 @@ userSchema.post('save', function(doc, next){
 userSchema.pre('save', async function(next){
   // const salt = await bcrypt.genSalt();
   // this.password = await bcrypt.hash(this.password, salt)
-  this.password = Sha256.hash(this.password)
+  this.password = stringToHashConversion(this.password)
   next();
 })
 
 
 /*
  * Login function using hash algorithm 
- */
-/* =============================================
-================================================
-================================================= */
+*/
+
+/*hasing algorithm  */
+
+ // conversts to 32bit integer
+ function stringToHashConversion(string) {
+  var hashVal = 0;
+  if (string.length == 0){
+    return hashVal;
+  }else{
+    for (i = 0; i < string.length; i++) {
+      char = string.charCodeAt(i);
+      hashVal = ((hashVal << 5) - hashVal) + char;
+      hashVal &= hashVal;
+    }
+    //to convert negative values into positive values
+    return (hashVal >>> 0);
+  }
+}
+
+
+
 
 global.userEmail;
 
@@ -49,10 +66,10 @@ userSchema.statics.login = async function(email, password){
     const user = await this.findOne({email: email});
 
     global.userEmail = user.email;
-    global.hashed_userEmail = Sha256.hash(global.userEmail)
+    global.hashed_userEmail = stringToHashConversion(global.userEmail)
 
     if(user){
-      password = Sha256.hash(password)
+      password = stringToHashConversion(password)
       if(password == user.password){
         return user;
       }

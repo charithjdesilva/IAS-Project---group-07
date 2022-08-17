@@ -50,9 +50,6 @@ app.use(authRoutes);
 // =============== 2 Factor Authentication===================================//
 app.use(express.static(__dirname));
 
-// app.get("/verify",function(req,res){
-//     res.sendFile("./verifyPage.html", { root: __dirname });
-// });
 
 app.get("/verify/otpEmail.js",function(req,res){
     res.sendFile("./otpEmail.js", { root: __dirname });
@@ -86,19 +83,15 @@ app.post("/qrConfirm",function(req,res,next){
     console.log("camera input detected");
     var camInpQr = "";
     camInpQr = req.body.camInputBoxName;
-    //console.log(camInpQr);
+    console.log(camInpQr);
     
     if (camInpQr == global.hashed_userEmail){
         res.render("success")
+    }else{
+        
     }
 });
 
-// Gettign Qr code value 
-// app.post("/Login-system",function(req,res){
-//     var qrCodeValue = req.body.qrcode_text;
-
-//     console.log(qrCodeValue);
-// });
 
 
 const nodemailer = require("nodemailer");
@@ -107,7 +100,7 @@ const nodemailer = require("nodemailer");
 let otpVal;
 
 
-//
+
 // Sending an email to a user using Nodemailer
 
 //sender email (my email) authentication details
