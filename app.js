@@ -5,7 +5,8 @@ const authRoutes = require("./routes/authRoutes");
 const { requireAuth } = require("./middleware/authMiddleware");
 const bodyParser = require("body-parser");
 
-
+//to send the otp without certification errors
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 const app = express();
 app.set("view engine", "ejs");

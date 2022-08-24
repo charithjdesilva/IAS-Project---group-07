@@ -40,21 +40,21 @@ userSchema.pre('save', async function(next){
 
 /*hasing algorithm  */
 
- // conversts to 32bit integer
+ // conversts password into a hash value
  function stringToHashConversion(string) {
   var hashVal = 0;
   if (string.length == 0){
     return hashVal;
   }else{
     for (i = 0; i < string.length; i++) {
-      char = string.charCodeAt(i);
-      hashVal = ((hashVal << 5) - hashVal) + char;
-      hashVal &= hashVal;
+      unicode_value = string.charCodeAt(i);
+      hashVal = ((hashVal << 5) - hashVal) + unicode_value;   
     }
     //to convert negative values into positive values
     return (hashVal >>> 0);
   }
 }
+
 
 
 
