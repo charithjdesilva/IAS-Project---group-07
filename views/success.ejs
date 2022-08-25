@@ -1,19 +1,21 @@
 <%- include("./partials/header.ejs") %>
 
 <body>
-
-  <div class="bgimg">
-    <div class="topleft">
-    </div>
-    <div class="middle">
-      <h1>WELCOME TO THE BANKING SYSTEM</h1>
-      <h4><%= global.userEmail%></h4>
-    </div>
+  <div class="success">
+      <div class="container">
+          <div class="success-welcome">
+              <h1>Welcome to the banking system</h1>
+              <div class="success-email">
+                <h4><%= global.userEmail%></h4>
+              </div>
+                <p>We're ready to activate your account. All we need to do is make sure this is your email address.
+                </p>
+            </div>
+      </div>
+      <div class="success-img">
+          <img src="../public/images/6685.jpg" halt="" height="500px" width="">
+      </div>
   </div>
-  
-  
-  <!-- script -->
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap.js"></script> 
 </body>
 </html>
+<body>
